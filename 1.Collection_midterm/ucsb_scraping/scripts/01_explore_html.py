@@ -73,60 +73,71 @@ else:
     print("Could not find results count")
 
 # =============================================================================
-# 2. EXAMINE ONE SEARCH RESULT ITEM
+# 2. FIND ALL SEARCH RESULT ROWS
 # =============================================================================
 
-print("\n[2] Individual Search Result Structure")
+print("\n[2] Extracting Search Results")
 print("-" * 80)
 
-# Find all search result items
-# Each result is typically in a <tr> (table row) or <div> with a specific class
-results = soup.find_all('tr', class_='views-row')
+# Find all <tr> elements that contain search results
+# Strategy: Find rows that have the specific td cells we need (date, president, title)
+all_rows = soup.find_all('tr')
 
-if results:
-    print(f"Found {len(results)} search results on this page\n")
+# Filter to only rows that have our required cells
+result_rows = []
+for row in all_rows:
+    # Check if this row has the cells we need
+    has_date = row.find('td', class_='views-field-field-docs-start-date-time-value')
+    has_title = row.find('td', class_='views-field-title')
+    if has_date and has_title:
+        result_rows.append(row)
 
-    # Examine the first result in detail
-    first_result = results[0]
-    print("Examining first result:")
-    print("-" * 40)
+all_rows = result_rows
 
-    # Extract document title and link
-    title_tag = first_result.find('a')
-    if title_tag:
-        title = title_tag.get_text(strip=True)
-        url = title_tag.get('href')
-        # If URL is relative, make it absolute
-        if url and not url.startswith('http'):
-            url = 'https://www.presidency.ucsb.edu' + url
-        print(f"Title: {title}")
-        print(f"URL: {url}")
+print(f"Found {len(all_rows)} search result rows\n")
 
-    # Extract date
-    date_tag = first_result.find('td', class_='views-field-field-docs-start-date-time-value')
-    if date_tag:
-        date = date_tag.get_text(strip=True)
-        print(f"Date: {date}")
+if all_rows:
+    # Examine the first 3 results in detail
+    for i, row in enumerate(all_rows[:3]):
+        print(f"\n--- Result {i+1} ---")
 
-    # Extract president name
-    president_tag = first_result.find('td', class_='views-field-field-docs-person')
-    if president_tag:
-        president = president_tag.get_text(strip=True)
-        print(f"President: {president}")
+        # Extract date
+        date_cell = row.find('td', class_='views-field-field-docs-start-date-time-value')
+        if date_cell:
+            date = date_cell.get_text(strip=True)
+            print(f"Date: {date}")
 
-    # Show the raw HTML of first result for reference
-    print("\nRaw HTML of first result (first 500 chars):")
-    print("-" * 40)
-    print(str(first_result)[:500] + "...")
+        # Extract president
+        president_cell = row.find('td', class_='views-field-field-docs-person')
+        if president_cell:
+            president = president_cell.get_text(strip=True)
+            print(f"President: {president}")
 
+        # Extract title and URL
+        title_cell = row.find('td', class_='views-field-title')
+        if title_cell:
+            link = title_cell.find('a')
+            if link:
+                title = link.get_text(strip=True)
+                url = link.get('href')
+                # Make URL absolute
+                if url and not url.startswith('http'):
+                    url = 'https://www.presidency.ucsb.edu' + url
+                print(f"Title: {title}")
+                print(f"URL: {url}")
+
+            # Extract preview text (the snippet showing keyword in context)
+            # Remove the link text to get just the preview
+            preview = title_cell.get_text(strip=True)
+            preview = preview.replace(title, '').strip()
+            if preview:
+                print(f"Preview: {preview[:100]}...")
+
+        print("-" * 80)
+
+    print(f"\n✓ Successfully extracted {len(all_rows)} results from this page")
 else:
-    print("Could not find search results. The HTML structure might be different.")
-    print("Let's look for other possible containers...")
-
-    # Alternative: look for results in a different structure
-    alt_results = soup.find_all('div', class_='views-row')
-    if alt_results:
-        print(f"Found {len(alt_results)} results in alternative structure")
+    print("No search result rows found!")
 
 # =============================================================================
 # 3. PAGINATION INFORMATION
