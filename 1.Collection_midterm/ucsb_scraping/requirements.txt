@@ -1,0 +1,18 @@
+# Web Scraping Dependencies for UCSB Presidency Project
+# Project: CIA/DEA Text Analysis - Reagan's Discourse on Nicaragua
+
+# Core web scraping libraries
+requests==2.31.0          # For making HTTP requests to web pages
+beautifulsoup4==4.12.3    # For parsing HTML and extracting data
+lxml==5.1.0               # Fast HTML/XML parser (used by BeautifulSoup)
+
+# Data manipulation and storage
+pandas==2.2.0             # For creating and managing metadata CSV files
+numpy==1.26.3             # Numerical operations (dependency of pandas)
+
+# Optional: Progress tracking and rate limiting
+tqdm==4.66.1              # Progress bars for scraping operations
+python-dateutil==2.8.2    # For parsing and formatting dates
+
+# Installation instructions:
+# Run: pip install -r requirements.txt
