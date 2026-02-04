@@ -7,9 +7,9 @@ Analyzing President Reagan's public discourse on Nicaragua during the 1980s, spe
 This project scrapes speeches and documents from the UCSB American Presidency Project database to build a corpus for text analysis research on CIA and DEA operations in Central America.
 
 ## Search Parameters
-- **Keywords**: "Nicaragua" AND "drug"
+- **Keywords**: "Nicaragua"
 - **President**: Ronald Reagan (ID: 200296)
-- **Total Results**: 57 documents
+- **Total Results**: 447 documents
 - **Source**: https://www.presidency.ucsb.edu/
 
 ## Project Structure
