@@ -9,6 +9,7 @@ This project scrapes speeches and documents from the UCSB American Presidency Pr
 ## Search Parameters
 - **Keywords**: "Nicaragua"
 - **President**: Ronald Reagan (ID: 200296)
+- **Document Categories**: Presidential, Executive Orders, Signing Statements, Spoken Addresses and REmarks, Memoranda, Messages, Proclamations, State of the Union Addresses, Campaign Documents, Statements, Press Briefings
 - **Total Results**: 447 documents
 - **Source**: https://www.presidency.ucsb.edu/
 
