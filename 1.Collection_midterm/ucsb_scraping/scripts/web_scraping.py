@@ -74,7 +74,7 @@ def scraping_page(url):
             'date': date, 
             'title': title, 
             'url': full_url,
-            'president': president  
+            'president': president
         }
         documents.append(doc)
     
@@ -117,8 +117,20 @@ for i in range(-3, 0):
     print(f"Title: {doc['title']}")
     print(f"President: {doc['president']}")
 
-# Convert to pandas Dataframe
+# Convert to pandas Dataframe =========
 df = pd.DataFrame(all_documents)
-os.makedirs('data', exist_ok=True)
+
+# Create filename column
+# Format: doc_001.txt, doc_002.txt, etc.
+df['filename'] = df.index.map(lambda x: f"doc_{x:03d}.txt")
+
+# Reorder columns to put filename first 
+df = df[['filename', 'date', 'title', 'president', 'url']]
+
+# save 
 df.to_csv('data/metadata.csv', index=False, encoding='utf-8')
 
+
+
+
+    
