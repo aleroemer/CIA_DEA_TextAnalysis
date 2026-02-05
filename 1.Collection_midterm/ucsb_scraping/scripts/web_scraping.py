@@ -45,7 +45,7 @@ def scraping_page(url):
         date_cell = row.find('td', class_='views-field-field-docs-start-date-time-value')
         title_cell = row.find('td', class_='views-field-title')
         president_cell = row.find('td', class_='views-field-field-docs-person')
-        if date_cell and title_cell:
+        if date_cell and title_cell and president_cell:
             result_rows.append(row)  
     print(f"Found {len(result_rows)} search results")
 
@@ -61,7 +61,10 @@ def scraping_page(url):
         title_cell = row.find('td', class_='views-field-title')
         link_tag = title_cell.find('a') 
         title = link_tag.text.strip()
-        url_path = link_tag["href"] 
+        url_path = link_tag["href"]
+        # extract president name
+        president_cell = row.find('td', class_ ='views-field-field-docs-person')
+        president = president_cell.text.strip() 
 
         #build full URL
         full_url = "https://www.presidency.ucsb.edu" + url_path
@@ -70,7 +73,8 @@ def scraping_page(url):
         doc = {
             'date': date, 
             'title': title, 
-            'url': full_url
+            'url': full_url,
+            'president': president  
         }
         documents.append(doc)
     
@@ -101,3 +105,14 @@ for page_num in range(20):
     time.sleep(2)
 
 print(f"Total: {len(all_documents)} documents") # add to list
+
+# Get text within each link                                                       
+print("\n" + "="*80)               
+print("SAMPLE OF COLLECTED METADATA")
+print("="*80)
+
+for i in range(-3, 0):
+    doc = all_documents[i]
+    print(f"\nDate: {doc['date']}")
+    print(f"Title: {doc['title']}")
+    print(f"President: {doc['president']}")
