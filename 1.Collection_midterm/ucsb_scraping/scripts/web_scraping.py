@@ -116,3 +116,9 @@ for i in range(-3, 0):
     print(f"\nDate: {doc['date']}")
     print(f"Title: {doc['title']}")
     print(f"President: {doc['president']}")
+
+# Convert to pandas Dataframe
+df = pd.DataFrame(all_documents)
+os.makedirs('data', exist_ok=True)
+df.to_csv('data/metadata.csv', index=False, encoding='utf-8')
+
