@@ -122,7 +122,7 @@ df = pd.DataFrame(all_documents)
 
 # Create filename column
 # Format: doc_001.txt, doc_002.txt, etc.
-df['filename'] = df.index.map(lambda x: f"doc_{x:03d}.txt")
+df['filename'] = df.index.map(lambda x: f"{x:03d}.txt")
 
 # Reorder columns to put filename first 
 df = df[['filename', 'date', 'title', 'president', 'url']]
