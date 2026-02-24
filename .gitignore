@@ -13,6 +13,7 @@ data/raw_texts/
 
 # text files, images and 
 *.txt 
+*.png
 
 # Temporary/lock files
 ~$*
