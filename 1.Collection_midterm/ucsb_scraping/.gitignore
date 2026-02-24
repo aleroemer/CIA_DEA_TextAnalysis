@@ -11,7 +11,7 @@
 *.pdf
 data/raw_texts/
 
-# text files
+# text files, images and 
 *.txt 
 
 # Temporary/lock files
