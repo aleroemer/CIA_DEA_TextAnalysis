@@ -1,0 +1,25 @@
+# System files
+.DS_Store
+.Rhistory
+*.DS_Store
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Large data files
+*.zip
+*.pdf
+data/raw_texts/
+
+# text files
+*.txt 
+
+# Temporary/lock files
+~$*
+
+# HTML scratch files (if not intentional)
+*.html
+
+# R artifacts
+*.Rhistory
+*.RData
